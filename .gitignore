@@ -9,3 +9,5 @@
 .cxx/
 *.apk
 *.aab
+docs/LOCAL_DEPLOY.md
+*.local.md
