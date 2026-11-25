@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="180dp"
+    android:viewportWidth="320"
+    android:viewportHeight="180">
+
+    <!-- Sky background -->
+    <path
+        android:fillColor="#FF29B6F6"
+        android:pathData="M0,0h320v180h-320z" />
+
+    <!-- Sunny hills -->
+    <path
+        android:fillColor="#FF66BB6A"
+        android:pathData="M0,132 Q80,104 160,132 T320,126 L320,180 L0,180 Z" />
+
+    <!-- Bright sun -->
+    <path
+        android:fillColor="#FFFFEB3B"
+        android:pathData="M44,42 m-22,0 a22,22 0 1,0 44,0 a22,22 0 1,0 -44,0" />
+
+    <!-- Red Balloon -->
+    <path
+        android:fillColor="#FFFF5252"
+        android:pathData="M110,74 m-22,0 a22,26 0 1,0 44,0 a22,26 0 1,0 -44,0" />
+    <path
+        android:fillColor="#55FFFFFF"
+        android:pathData="M102,64 m-5,0 a5,8 0 1,0 10,0 a5,8 0 1,0 -10,0" />
+
+    <!-- Yellow Balloon -->
+    <path
+        android:fillColor="#FFFFCA28"
+        android:pathData="M160,64 m-24,0 a24,28 0 1,0 48,0 a24,28 0 1,0 -48,0" />
+    <path
+        android:fillColor="#55FFFFFF"
+        android:pathData="M151,54 m-5,0 a5,8 0 1,0 10,0 a5,8 0 1,0 -10,0" />
+
+    <!-- Mint Balloon -->
+    <path
+        android:fillColor="#FF26A69A"
+        android:pathData="M210,76 m-22,0 a22,26 0 1,0 44,0 a22,26 0 1,0 -44,0" />
+    <path
+        android:fillColor="#55FFFFFF"
+        android:pathData="M202,66 m-5,0 a5,8 0 1,0 10,0 a5,8 0 1,0 -10,0" />
+
+    <!-- Toybox crate -->
+    <path
+        android:fillColor="#FFFF7043"
+        android:pathData="M116,114 L204,114 L198,162 L122,162 Z" />
+    <path
+        android:fillColor="#FFFFA726"
+        android:pathData="M110,104 L210,104 L210,118 L110,118 Z" />
+
+    <!-- Golden star on crate -->
+    <path
+        android:fillColor="#FFFFEE58"
+        android:pathData="M160,124 L164,134 L175,135 L166,142 L169,152 L160,146 L151,152 L154,142 L145,135 L156,134 Z" />
+</vector>
