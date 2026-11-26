@@ -18,14 +18,14 @@ if (releaseKeystoreFile != null) {
 
 android {
     namespace = "com.toybox.tv"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.trishud.toybox"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 8
-        versionName = "1.6.0"
+        targetSdk = 36
+        versionCode = 9
+        versionName = "1.6.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -45,6 +45,9 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
+            ndk {
+                debugSymbolLevel = "FULL"
+            }
             signingConfig = signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
