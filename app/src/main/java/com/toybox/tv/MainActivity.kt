@@ -7,6 +7,9 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -19,10 +22,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.math.abs
 import com.toybox.tv.audio.SoundEffect
 import com.toybox.tv.audio.SoundEngine
 import com.toybox.tv.audio.VoiceSpeaker
@@ -126,7 +132,56 @@ class MainActivity : ComponentActivity() {
                     activeMode = nextMode
                 }
 
-                Box(modifier = Modifier.fillMaxSize()) {
+                val isTouchDevice = packageManager.hasSystemFeature("android.hardware.touchscreen")
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .then(
+                            if (activeMode != null) {
+                                Modifier
+                                    .pointerInput(activeMode) {
+                                        detectTapGestures { offset ->
+                                            val w = size.width.toFloat().coerceAtLeast(1f)
+                                            val mapped = when {
+                                                offset.x < w * 0.22f -> ToyboxKey.LEFT
+                                                offset.x > w * 0.78f -> ToyboxKey.RIGHT
+                                                else -> ToyboxKey.OK
+                                            }
+                                            keyCounter++
+                                            lastModeKey = keyCounter to mapped
+                                        }
+                                    }
+                                    .pointerInput(activeMode) {
+                                        var totalX = 0f
+                                        var totalY = 0f
+                                        detectDragGestures(
+                                            onDragStart = {
+                                                totalX = 0f
+                                                totalY = 0f
+                                            },
+                                            onDrag = { _, dragAmount ->
+                                                totalX += dragAmount.x
+                                                totalY += dragAmount.y
+                                            },
+                                            onDragEnd = {
+                                                if (abs(totalX) > 48f || abs(totalY) > 48f) {
+                                                    val mapped = if (abs(totalX) > abs(totalY)) {
+                                                        if (totalX > 0f) ToyboxKey.RIGHT else ToyboxKey.LEFT
+                                                    } else {
+                                                        if (totalY > 0f) ToyboxKey.DOWN else ToyboxKey.UP
+                                                    }
+                                                    keyCounter++
+                                                    lastModeKey = keyCounter to mapped
+                                                }
+                                            }
+                                        )
+                                    }
+                            } else {
+                                Modifier
+                            }
+                        )
+                ) {
                     when (activeMode) {
                         null -> ToyboxHomeScreen(
                             selectedIndex = homeSelectedIndex,
@@ -247,6 +302,32 @@ class MainActivity : ComponentActivity() {
                             soundEngine = soundEngine,
                             voiceSpeaker = voiceSpeaker
                         )
+                    }
+
+                    // Touch-friendly Back button on phones & tablets (hidden on pure Android TV)
+                    if (isTouchDevice && activeMode != null) {
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.TopStart)
+                                .padding(start = 20.dp, top = 16.dp)
+                                .clip(RoundedCornerShape(24.dp))
+                                .background(Color(0xAA1A237E))
+                                .clickable {
+                                    soundEngine.play(SoundEffect.PLOP)
+                                    isDemoMode = false
+                                    activeMode = null
+                                    lastModeKey = null
+                                    holdBackController.reset()
+                                }
+                                .padding(horizontal = 18.dp, vertical = 9.dp)
+                        ) {
+                            Text(
+                                text = "← Toys",
+                                color = Color.White,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.ExtraBold
+                            )
+                        }
                     }
 
                     // Subtle top-right countdown badge during Demo Mode
