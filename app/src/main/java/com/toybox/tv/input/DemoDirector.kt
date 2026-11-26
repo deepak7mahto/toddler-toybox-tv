@@ -47,7 +47,11 @@ object DemoDirector {
         ToyboxMode.FIREWORKS_SKY,
         ToyboxMode.DRUM_BAND,
         ToyboxMode.PAINT_SPLASH,
-        ToyboxMode.BUTTERFLY_GARDEN -> 650L
+        ToyboxMode.BUTTERFLY_GARDEN,
+        ToyboxMode.CHAKKAR_SPINNER,
+        ToyboxMode.ANAR_FOUNTAIN,
+        ToyboxMode.SPARKLER_MAGIC,
+        ToyboxMode.CARTOON_SOUNDS -> 650L
         else -> 1300L
     }
 }

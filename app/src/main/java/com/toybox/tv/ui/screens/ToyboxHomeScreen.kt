@@ -57,7 +57,13 @@ enum class ToyboxMode(val title: String, val accent: Color, val cardBg: Color) {
     YUMMY_FOOD("Yummy", Color(0xFFE65100), Color(0xFFFFF3E0)),
     PAINT_SPLASH("Paint", Color(0xFFD81B60), Color(0xFFFCE4EC)),
     SPACE_EXPLORER("Space", Color(0xFF283593), Color(0xFFE8EAF6)),
-    BUTTERFLY_GARDEN("Garden", Color(0xFF7B1FA2), Color(0xFFF3E5F5))
+    BUTTERFLY_GARDEN("Garden", Color(0xFF7B1FA2), Color(0xFFF3E5F5)),
+    CHAKKAR_SPINNER("Chakkar", Color(0xFFE65100), Color(0xFFFFF3E0)),
+    ANAR_FOUNTAIN("Anar", Color(0xFFC62828), Color(0xFFFFEBEE)),
+    SPARKLER_MAGIC("Sparkler", Color(0xFF283593), Color(0xFFE8EAF6)),
+    BIRD_SONGS("Birds", Color(0xFF0277BD), Color(0xFFE1F5FE)),
+    CARTOON_SOUNDS("Silly SFX", Color(0xFFD81B60), Color(0xFFFCE4EC)),
+    NATURE_SOUNDS("Nature", Color(0xFF2E7D32), Color(0xFFE8F5E9))
 }
 
 private val TileShape = RoundedCornerShape(20.dp)
@@ -112,8 +118,8 @@ fun ToyboxHomeScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "TODDLER TOYBOX (18)",
-                    fontSize = 30.sp,
+                    text = "TODDLER TOYBOX (24)",
+                    fontSize = 28.sp,
                     fontWeight = FontWeight.ExtraBold,
                     color = Color.White,
                     letterSpacing = 2.sp
@@ -152,19 +158,19 @@ fun ToyboxHomeScreen(
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            // 6 columns x 3 rows = 18 games
+            // 6 columns x 4 rows = 24 games
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                for (row in 0 until 3) {
+                for (row in 0 until 4) {
                     Row(
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         for (col in 0 until 6) {
                             val idx = row * 6 + col
@@ -393,6 +399,40 @@ private fun DrawScope.drawModeIcon(mode: ToyboxMode, c: Offset, r: Float, cached
             drawOval(Color(0xFFFF80AB), Offset(cx - r * 0.92f, cy - r * 0.62f), Size(r * 0.85f, r * 1.15f))
             drawOval(Color(0xFFFF80AB), Offset(cx + r * 0.07f, cy - r * 0.62f), Size(r * 0.85f, r * 1.15f))
             drawOval(Color(0xFF3E2723), Offset(cx - r * 0.12f, cy - r * 0.45f), Size(r * 0.24f, r * 0.95f))
+        }
+        ToyboxMode.CHAKKAR_SPINNER -> {
+            drawCircle(Color(0xFF1A237E), r * 1.05f, c)
+            drawCircle(Color(0xFFFF5252), r * 0.72f, c)
+            drawCircle(Color(0xFFFFD600), r * 0.48f, c, style = Stroke(8f))
+            ParticleSystem.drawStar(this, Offset(cx + r * 0.68f, cy - r * 0.62f), r * 0.3f, Color(0xFFFFEE58))
+        }
+        ToyboxMode.ANAR_FOUNTAIN -> {
+            drawCircle(Color(0xFF1A237E), r * 1.05f, c)
+            ParticleSystem.drawStar(this, Offset(cx, cy - r * 0.45f), r * 0.55f, Color(0xFFFFD600))
+            drawOval(Color(0xFFFF5252), Offset(cx - r * 0.48f, cy + r * 0.05f), Size(r * 0.96f, r * 0.82f))
+        }
+        ToyboxMode.SPARKLER_MAGIC -> {
+            drawCircle(Color(0xFF1A237E), r * 1.05f, c)
+            drawLine(Color(0xFFCFD8DC), Offset(cx, cy), Offset(cx + r * 0.7f, cy + r * 0.75f), 7f)
+            ParticleSystem.drawStar(this, Offset(cx - r * 0.1f, cy - r * 0.15f), r * 0.68f, Color(0xFFFFEE58))
+        }
+        ToyboxMode.BIRD_SONGS -> {
+            drawCircle(Color(0xFF42A5F5), r * 0.78f, c)
+            drawOval(Color(0xFF1E88E5), Offset(cx - r * 1.15f, cy - r * 0.25f), Size(r * 0.65f, r * 0.45f))
+            drawCircle(Color.White, r * 0.18f, Offset(cx + r * 0.22f, cy - r * 0.18f))
+            drawCircle(Color(0xFF212121), r * 0.09f, Offset(cx + r * 0.22f, cy - r * 0.18f))
+            drawCircle(Color(0xFFFFCA28), r * 0.22f, Offset(cx + r * 0.68f, cy + r * 0.05f))
+        }
+        ToyboxMode.CARTOON_SOUNDS -> {
+            ParticleSystem.drawStar(this, c, r * 1.05f, Color(0xFFFF80AB))
+            drawCircle(Color(0xFFFFD600), r * 0.55f, c)
+            drawCircle(Color(0xFF212121), r * 0.09f, Offset(cx - r * 0.18f, cy - r * 0.08f))
+            drawCircle(Color(0xFF212121), r * 0.09f, Offset(cx + r * 0.18f, cy - r * 0.08f))
+        }
+        ToyboxMode.NATURE_SOUNDS -> {
+            drawCircle(Color(0xFF4FC3F7), r * 1.0f, c)
+            drawCircle(Color(0xFFFFEE58), r * 0.38f, Offset(cx - r * 0.35f, cy - r * 0.35f))
+            drawCircle(Color(0xFF43A047), r * 0.55f, Offset(cx + r * 0.25f, cy + r * 0.32f))
         }
     }
 }

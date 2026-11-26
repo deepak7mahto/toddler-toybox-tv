@@ -92,8 +92,18 @@ fun AnimalFriendsScreen(
             }
         }
         val active = animals[currentIndex]
-        soundEngine.play(SoundEffect.ANIMAL_BOING, rate = active.pitchRate)
-        voiceSpeaker.speak(active.soundPhrase)
+        val realSfx = when (active) {
+            AnimalFriend.LION -> SoundEffect.REAL_LION
+            AnimalFriend.ELEPHANT -> SoundEffect.REAL_ELEPHANT
+            AnimalFriend.DUCK -> SoundEffect.REAL_DUCK
+            AnimalFriend.COW -> SoundEffect.REAL_COW
+            AnimalFriend.DOG -> SoundEffect.REAL_DOG
+            AnimalFriend.FROG -> SoundEffect.REAL_BOING
+            AnimalFriend.CAT -> SoundEffect.REAL_CAT
+            AnimalFriend.OWL -> SoundEffect.REAL_OWL
+        }
+        soundEngine.play(realSfx)
+        voiceSpeaker.speak(active.displayName)
         particles.burst(
             x = canvasWidth * 0.5f,
             y = canvasHeight * 0.45f,

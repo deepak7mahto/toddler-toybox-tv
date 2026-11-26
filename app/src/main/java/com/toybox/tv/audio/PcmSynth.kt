@@ -261,6 +261,55 @@ object PcmSynth {
         return encodeWav(samples)
     }
 
+    fun chakkarSpin(): ByteArray {
+        val durationSec = 0.52
+        val count = (SAMPLE_RATE * durationSec).toInt()
+        val samples = ShortArray(count)
+        val rng = Random(201)
+        var phase = 0.0
+        for (i in 0 until count) {
+            val t = i.toDouble() / SAMPLE_RATE
+            val whirr = 280.0 + 420.0 * (t / durationSec) + 60.0 * sin(2.0 * PI * 18.0 * t)
+            phase += 2.0 * PI * whirr / SAMPLE_RATE
+            val env = (t / 0.04).coerceAtMost(1.0) * ((durationSec - t) / 0.09).coerceIn(0.0, 1.0)
+            val hiss = (rng.nextDouble() * 2.0 - 1.0) * 0.38
+            val spin = sin(phase) * 0.36
+            samples[i] = toPcm16((hiss + spin) * env * 0.75)
+        }
+        return encodeWav(samples)
+    }
+
+    fun anarFountain(): ByteArray {
+        val durationSec = 0.62
+        val count = (SAMPLE_RATE * durationSec).toInt()
+        val samples = ShortArray(count)
+        val rng = Random(202)
+        for (i in 0 until count) {
+            val t = i.toDouble() / SAMPLE_RATE
+            val env = (t / 0.05).coerceAtMost(1.0) * exp(-t * 2.8)
+            val sizzle = (rng.nextDouble() * 2.0 - 1.0) * 0.55
+            val pop = if (rng.nextDouble() < 0.025) 0.45 else 0.0
+            val shimmer = sin(2.0 * PI * (1500.0 + 300.0 * sin(t * 32.0)) * t) * 0.16
+            samples[i] = toPcm16((sizzle + pop + shimmer) * env * 0.78)
+        }
+        return encodeWav(samples)
+    }
+
+    fun sparklerCrackle(): ByteArray {
+        val durationSec = 0.44
+        val count = (SAMPLE_RATE * durationSec).toInt()
+        val samples = ShortArray(count)
+        val rng = Random(203)
+        for (i in 0 until count) {
+            val t = i.toDouble() / SAMPLE_RATE
+            val env = (t / 0.02).coerceAtMost(1.0) * exp(-t * 4.5)
+            val tick = if (rng.nextDouble() < 0.08) (rng.nextDouble() * 2.0 - 1.0) * 0.65 else 0.0
+            val chime = sin(2.0 * PI * 1760.0 * t) * 0.22 + sin(2.0 * PI * 2349.3 * t) * 0.14
+            samples[i] = toPcm16((tick + chime) * env * 0.75)
+        }
+        return encodeWav(samples)
+    }
+
     fun animalBoing(): ByteArray {
         val durationSec = 0.38
         val count = (SAMPLE_RATE * durationSec).toInt()

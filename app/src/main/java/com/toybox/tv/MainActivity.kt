@@ -30,14 +30,19 @@ import com.toybox.tv.input.DemoDirector
 import com.toybox.tv.input.HoldBackController
 import com.toybox.tv.input.ToyboxKey
 import com.toybox.tv.ui.screens.AbcScreen
+import com.toybox.tv.ui.screens.AnarFountainScreen
 import com.toybox.tv.ui.screens.AnimalFriendsScreen
 import com.toybox.tv.ui.screens.BalloonPopScreen
+import com.toybox.tv.ui.screens.BirdSongsScreen
 import com.toybox.tv.ui.screens.ButterflyGardenScreen
+import com.toybox.tv.ui.screens.CartoonSoundsScreen
+import com.toybox.tv.ui.screens.ChakkarSpinnerScreen
 import com.toybox.tv.ui.screens.ColorsShapesScreen
 import com.toybox.tv.ui.screens.DinosaurStompScreen
 import com.toybox.tv.ui.screens.DrumBandScreen
 import com.toybox.tv.ui.screens.FireworksSkyScreen
 import com.toybox.tv.ui.screens.HonkAndGoScreen
+import com.toybox.tv.ui.screens.NatureSoundsScreen
 import com.toybox.tv.ui.screens.Numbers100Screen
 import com.toybox.tv.ui.screens.NurseryPianoScreen
 import com.toybox.tv.ui.screens.OceanFriendsScreen
@@ -45,6 +50,7 @@ import com.toybox.tv.ui.screens.PaintSplashScreen
 import com.toybox.tv.ui.screens.PeekABooScreen
 import com.toybox.tv.ui.screens.RainbowMusicScreen
 import com.toybox.tv.ui.screens.SpaceExplorerScreen
+import com.toybox.tv.ui.screens.SparklerMagicScreen
 import com.toybox.tv.ui.screens.ToyboxHomeScreen
 import com.toybox.tv.ui.screens.ToyboxMode
 import com.toybox.tv.ui.screens.WeatherMagicScreen
@@ -213,6 +219,33 @@ class MainActivity : ComponentActivity() {
                         ToyboxMode.BUTTERFLY_GARDEN -> ButterflyGardenScreen(
                             lastKeyEvent = lastModeKey,
                             soundEngine = soundEngine
+                        )
+                        ToyboxMode.CHAKKAR_SPINNER -> ChakkarSpinnerScreen(
+                            lastKeyEvent = lastModeKey,
+                            soundEngine = soundEngine,
+                            voiceSpeaker = voiceSpeaker
+                        )
+                        ToyboxMode.ANAR_FOUNTAIN -> AnarFountainScreen(
+                            lastKeyEvent = lastModeKey,
+                            soundEngine = soundEngine
+                        )
+                        ToyboxMode.SPARKLER_MAGIC -> SparklerMagicScreen(
+                            lastKeyEvent = lastModeKey,
+                            soundEngine = soundEngine
+                        )
+                        ToyboxMode.BIRD_SONGS -> BirdSongsScreen(
+                            lastKeyEvent = lastModeKey,
+                            soundEngine = soundEngine,
+                            voiceSpeaker = voiceSpeaker
+                        )
+                        ToyboxMode.CARTOON_SOUNDS -> CartoonSoundsScreen(
+                            lastKeyEvent = lastModeKey,
+                            soundEngine = soundEngine
+                        )
+                        ToyboxMode.NATURE_SOUNDS -> NatureSoundsScreen(
+                            lastKeyEvent = lastModeKey,
+                            soundEngine = soundEngine,
+                            voiceSpeaker = voiceSpeaker
                         )
                     }
 
