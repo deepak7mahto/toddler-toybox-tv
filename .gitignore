@@ -11,3 +11,7 @@
 *.aab
 docs/LOCAL_DEPLOY.md
 *.local.md
+*.jks
+*.keystore
+keystore.properties
+play-store-assets/
