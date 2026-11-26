@@ -10,14 +10,14 @@
 ./gradlew test --no-daemon
 ```
 
-## Build Optimized R8 Release APK (~797 KB)
+## Build Optimized R8 Release APK (~1.1 MB)
 ```bash
 ./gradlew assembleRelease --no-daemon
 # Output: app/build/outputs/apk/release/app-release.apk
 ```
 
 ## Sideload & AOT-Compile to Android TV (via ADB)
-Running `cmd package compile -m speed -f com.toybox.tv` after install AOT-compiles the APK into native machine code for fast (~700ms) cold starts on Android TV hardware.
+Running `cmd package compile -m speed -f com.toybox.tv` after install AOT-compiles the APK into native machine code for fast (~700–850 ms) cold starts on Android TV hardware.
 
 ```bash
 adb connect <TV_IP>:5555 && \
